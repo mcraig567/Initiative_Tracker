@@ -1,0 +1,38 @@
+{% extends "tracker/layout.html" %}
+
+{% block title %}
+<title>Initiative tracker</title>
+{% endblock %}
+
+{% block body %}
+<h1>Keep Track of Turns and Spells!</h1>
+<h2>Current Battle</h2>
+<ul>
+    {% for player in players %}
+        <li>{{ player }}</li>
+    {% empty %}
+        No players yet
+    {% endfor %}
+</ul>
+
+<form action="{% url 'turn' %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="End Turn">
+</form>
+
+
+
+</form>
+<a href="{% url 'add_player' %}">Add Character to Battle</a>
+<a>Add Spell</a>
+<form action="{% url 'clear' %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="End Battle">
+</form>
+
+
+
+
+
+
+{% endblock %}
