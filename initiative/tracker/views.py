@@ -7,13 +7,15 @@ from django.urls import reverse
 players = ['nitor', 'dune', 'mya', 'jonus']
 
 def index(request):
+    if "battle_players" not in request.session:
+        request.session["battle_players"] = []
     return render(request, "tracker/index.html", {
-        "players": players
+        "players": request.session["battle_players"]
     })
 
 def add_player(request):
     if request.method == "POST":
-        players.append(request.POST["player"])
+        request.session["battle_players"] += [request.POST['player']]
         return HttpResponseRedirect(reverse("index"))
 
     return render(request, "tracker/add_player.html")
@@ -24,4 +26,6 @@ def turn(request):
 
 def clear(request):
     if request.method == "POST":
+        if "battle_players" in request.session:
+            request.session["battle_players"] = []
         return HttpResponseRedirect(reverse("index"))
