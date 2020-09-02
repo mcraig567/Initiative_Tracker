@@ -1,0 +1,25 @@
+{% extends "tracker/layout.html" %}
+
+{% block title %}
+<title>Add a Spell</title>
+{% endblock %}
+
+{% block body %}
+<form action="{% url 'spell' %}" method="POST">
+    {% csrf_token %}
+    <input name="spell" type="text" placeholder="Spell Name">
+    <input name="duration" type="number" placeholder="Length">
+    <select name="concentration">
+        <option value="True">True</option>
+        <option value="False"> False</option>
+    </select>
+    <select name="caster">
+        {% for player in players %}
+            <option value="{{ player.id }}">{{ player.name }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Cast">
+</form>
+
+<a href="{% url 'index' %}">Back to Battle</a>
+{% endblock %}
