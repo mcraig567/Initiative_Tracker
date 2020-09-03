@@ -10,11 +10,15 @@
     <a href="{% url 'index' %}">Return to Battle</a>
 </div>
 
+{% if message %}
+    <h2>{{ message }}</h2>
+{% endif %}
+
 <div class="add">
     <form action="{% url 'spell' %}" method="POST">
         {% csrf_token %}
         <input name="spell" type="text" placeholder="Spell Name" required>
-        <input name="duration" type="number" placeholder="Length" required>
+        <input name="duration" type="number" placeholder="Length" required min="1">
         <select name="concentration" required>
             <option value="" disabled selected hidden>Concentration</option>
             <option value="True">True</option>

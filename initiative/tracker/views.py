@@ -42,7 +42,11 @@ def add_player(request):
         player = Fighter(name=request.POST['player'], initiative=request.POST['initiative'])
         player.save()
 
-        return HttpResponseRedirect(reverse("index"))
+        #Functionality to add and keep adding
+        if request.POST['add_button'] == 'Add Character':
+            return HttpResponseRedirect(reverse("index"))
+        else:
+            return render(request, "tracker/add_player.html")
 
     return render(request, "tracker/add_player.html")
 
@@ -82,7 +86,43 @@ def clear(request):
 
 def spell(request):
     #Can you make this a popup/dialogue box
+    players = Fighter.objects.all()
     if request.method == "POST":
+
+        #Check Inputs
+        if len(request.POST['spell']) > 64:
+            message = "Spell name must be less than 64 characters"
+            return render(request, "tracker/add_spell.html", {
+                "message" : message,
+                "players" : players
+            })  
+
+        elif int(request.POST['duration']) < 0:
+            message = "Minimum duration is 1 second"
+            return render(request, "tracker/add_spell.html", {
+                "message" : message,
+                "players" : players
+            })  
+
+        try:
+            Fighter.objects.get(id=request.POST['caster'])
+        except NameError:
+            message = "This character does not exist"
+            return render(request, "tracker/add_spell.html", {
+                "message" : message,
+                "players" : players
+            })
+
+        if bool(request.POST['concentration']) is not True or False:
+            message = "You must specify if the spell requires concentration"
+            return render(request, "tracker/add_spell.html", {
+                "message" : message,
+                "players" : players
+            })   
+
+
+
+
         spell = Spell(
         name=request.POST['spell'],
         duration=request.POST['duration'],
@@ -94,7 +134,6 @@ def spell(request):
         return HttpResponseRedirect(reverse("index"))
 
     else:
-        players = Fighter.objects.all()
         return render(request, "tracker/add_spell.html", {
             "players" : players
         })
