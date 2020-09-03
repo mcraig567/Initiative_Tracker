@@ -7,7 +7,7 @@ class Fighter(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return f"Fighter: {self.name}"
+        return f"{self.name}"
 
 class Spell(models.Model):
     name = models.CharField(max_length=64)

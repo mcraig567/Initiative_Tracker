@@ -24,6 +24,21 @@ def index(request):
 def add_player(request):
     #Can you make this a popup/dialogue box
     if request.method == "POST":
+
+        #Check Inputs
+        if len(request.POST['player']) > 64:
+            message = "Your player name must be less than 64 characters"
+            return render(request, "tracker/add_player.html", {
+                "message" : message
+            })  
+
+        elif int(request.POST['initiative']) < 1:
+            message = "Minimum initiative is 1"
+            return render(request, "tracker/add_player.html", {
+                "message" : message
+            })  
+
+        #Add player to database
         player = Fighter(name=request.POST['player'], initiative=request.POST['initiative'])
         player.save()
 
@@ -46,15 +61,17 @@ def turn(request):
             spell.save()
 
             if spell.duration <= 0:
-                expired_spells.append(spell)
+                expired_spells.append(f"{spell.name} - {spell.caster}")
+                Spell.objects.get(id=spell.id).delete()
 
         if len(expired_spells) == 0:
             print("Active: ", request.session['active'])
             return HttpResponseRedirect(reverse("index"))
 
         else:
-            #Create page that has list of expired spells, then ok button to return to index
-            return HttpResponseRedirect(reverse("index"))
+            return render(request, "tracker/expired_spells.html", {
+                "spells" : expired_spells
+            })
 
 def clear(request):
     if request.method == "POST":
@@ -90,3 +107,9 @@ def dead(request, dead_player):
 
     print("accesed dead")
     return HttpResponseRedirect(reverse("index"))
+
+def rem_spell(request, rem_spell):
+    #Add functionality to remove a spell by clicking button
+    if request.method == "POST":
+        Spell.objects.get(id=rem_spell).delete()
+        return HttpResponseRedirect(reverse("index"))

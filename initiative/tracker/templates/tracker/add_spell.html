@@ -5,21 +5,29 @@
 {% endblock %}
 
 {% block body %}
-<form action="{% url 'spell' %}" method="POST">
-    {% csrf_token %}
-    <input name="spell" type="text" placeholder="Spell Name">
-    <input name="duration" type="number" placeholder="Length">
-    <select name="concentration">
-        <option value="True">True</option>
-        <option value="False"> False</option>
-    </select>
-    <select name="caster">
-        {% for player in players %}
-            <option value="{{ player.id }}">{{ player.name }}</option>
-        {% endfor %}
-    </select>
-    <input type="submit" value="Cast">
-</form>
 
-<a href="{% url 'index' %}">Back to Battle</a>
+<div class="topnav">
+    <a href="{% url 'index' %}">Return to Battle</a>
+</div>
+
+<div class="add">
+    <form action="{% url 'spell' %}" method="POST">
+        {% csrf_token %}
+        <input name="spell" type="text" placeholder="Spell Name" required>
+        <input name="duration" type="number" placeholder="Length" required>
+        <select name="concentration" required>
+            <option value="" disabled selected hidden>Concentration</option>
+            <option value="True">True</option>
+            <option value="False"> False</option>
+        </select>
+        <select name="caster" required>
+            <option value="" disabled selected hidden>Caster</option>
+            {% for player in players %}
+                <option value="{{ player.id }}">{{ player.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Cast">
+    </form>
+</div>
+
 {% endblock %}
