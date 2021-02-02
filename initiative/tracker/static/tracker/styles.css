@@ -32,10 +32,12 @@ h2 {
     margin: 3px;
 }
 
-#add {
+#add, #spell {
     display: none;
     padding: 14px 0;
 }
+
+
 
 .spell_list {
     display: flex;

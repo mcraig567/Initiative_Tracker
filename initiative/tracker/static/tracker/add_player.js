@@ -1,5 +1,6 @@
 // Drops down tab to allow user to add a player and initiative
 // Adds new player to existing players in sorted order
+// Adds new player to options for casting a new spell
 
 document.addEventListener("DOMContentLoaded", function() {
     document.querySelector('#add-player').onclick = showPlayer;
@@ -32,6 +33,7 @@ function newPlayer(){
     //Create new div and append to end of list
     let new_player = document.createElement('li');
     new_player.value = player_init;
+    new_player.id = player_name;
     new_player.classList.add("player_list");
 
     let player_text = document.createElement('div');
@@ -70,12 +72,25 @@ function newPlayer(){
     if (all_players.length == 0) {
         player_list.innerHTML = "No Players Yet!";
     };
+
+    //Add new player as option to cast a spell
+    let caster = document.createElement('option');
+    caster.value = player_name;
+    caster.id = `cast-${player_name}`;
+    caster.innerHTML = `${player_name}`;
+    document.querySelector('#spell-cast').appendChild(caster);
+
 };
 
 function removePlayer(){
     this.parentNode.parentNode.removeChild(this.parentNode);
 
-    //If no players left
+    //Remove from caster options
+    let kill_name = this.parentNode.id;
+    let kill_spell = document.querySelector(`#cast-${kill_name}`);
+    kill_spell.parentNode.removeChild(kill_spell);
+
+    //If no players left, don't leave blank
     all_players = document.querySelectorAll('.player_list');
     if (all_players.length == 0) {
         document.querySelector('.current-players').innerHTML = "No players yet";
