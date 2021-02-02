@@ -6,14 +6,12 @@ from .models import Fighter, Spell
 # Create your views here.
 
 def index(request):
-    try:
-        request.session['active']
-    except NameError:
-        request.session['active'] = 0
-
     players = Fighter.objects.all()
     spells = Spell.objects.all()
-    active = request.session['active']
+
+    if 'active' not in request.session:
+        request.session['active'] = 0
+    active = request.session.get('active', 0)
 
     return render(request, "tracker/index.html", {
         "players" : players,
