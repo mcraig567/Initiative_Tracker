@@ -90,6 +90,17 @@ function removePlayer(){
     let kill_spell = document.querySelector(`#cast-${kill_name}`);
     kill_spell.parentNode.removeChild(kill_spell);
 
+    //Remove any spells cast by dead player
+    let dead_spells = document.querySelectorAll(`.spell-${kill_name}`);
+    //console.log(`Killed ${kill_name}`);
+    //console.log(dead_spells);
+
+    let i;
+    for (i = 0; i < dead_spells.length; i++) {
+        let spell = dead_spells[i];
+        spell.parentNode.removeChild(spell);
+    };
+
     //If no players left, don't leave blank
     all_players = document.querySelectorAll('.player_list');
     if (all_players.length == 0) {

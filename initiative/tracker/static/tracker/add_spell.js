@@ -24,9 +24,10 @@ function newSpell() {
     let concentration = document.querySelector('#new-spell-conc').value
     let caster = document.querySelector('#spell-cast').value;
 
-    // Create new list element and add new spell to list
+    // Create new list element
     let spell_elem = document.createElement('li');
     spell_elem.classList.add('spell_list');
+    spell_elem.classList.add(`spell-${caster}`);
     spell_name = document.createElement('div');
     spell_name_text = document.createTextNode(`${spell}`);
     spell_name.appendChild(spell_name_text);
@@ -51,5 +52,16 @@ function newSpell() {
 
     spell_elem.appendChild(inner_list);
 
+    //Add new spell list item to full list
     document.querySelector('#all-spells').appendChild(spell_elem);
+
+    //Add the caster to the element classlist for easy removal
+    spell_elem.classList.add(`spell-${caster}`);
+    console.log(`Adding spell by ${caster}`);
+
+    //Reset inputs to blank
+    document.querySelector('#new-spell-name').value = "";
+    document.querySelector('#new-spell-duration').value = "";
+    document.querySelector('#new-spell-conc').value = "";
+    document.querySelector('#spell-cast').value = "";
 };
