@@ -3,7 +3,7 @@ Web app to monitor turns in DND
 Allows user to track spells casted in battle and tells user when spells have expired
 
 Features to add:
-    - Bold the player who's turn it is
+    - Bold the player whos turn it is
     - Add "remove spell" button for each spell
 
 Checks to add:
