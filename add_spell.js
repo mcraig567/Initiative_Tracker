@@ -45,13 +45,21 @@ function newSpell() {
     inner_list.appendChild(spell_time);
     inner_list.appendChild(spell_caster);
 
+    //Add note if spell requires concentration
     if (concentration == 'True') {
         let spell_conc = document.createElement('li');
         spell_conc.innerHTML = 'Concentration'
         inner_list.appendChild(spell_conc);
     };
 
+    //Create button to remove spell
+    let rm_spell = document.createElement('button');
+    rm_spell.classList.add('spell-remove');
+    rm_spell.innerHTML = 'Remove';
+    rm_spell.onclick = removeSpell;
+
     spell_elem.appendChild(inner_list);
+    spell_elem.appendChild(rm_spell);
 
     //Add new spell list item to full list
     document.querySelector('#all-spells').appendChild(spell_elem);
@@ -66,3 +74,7 @@ function newSpell() {
     document.querySelector('#new-spell-conc').value = "";
     document.querySelector('#spell-cast').value = "";
 };
+
+function removeSpell() {
+    this.parentNode.parentNode.removeChild(this.parentNode);
+}

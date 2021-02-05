@@ -14,7 +14,7 @@ function endTurn() {
     console.log('Next Turn')
     //Get list of all remaining spell durations (li elements)
     let spell_times = document.querySelectorAll('.time');
-    console.log(spell_times)
+    //console.log(spell_times)
     
     if (document.querySelector('#end_turn').innerHTML === "Start Battle") {
         document.querySelector('#end_turn').innerHTML = "End Turn";
