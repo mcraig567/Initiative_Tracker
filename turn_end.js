@@ -48,7 +48,7 @@ function endTurn() {
         turn ++
     };
 
-    //Add bold font when 
+    //Add bold font when players turn
     for (i = 0; i < players.length; i++) {
         if (i == turn) {
             players[i].classList.add('active');
