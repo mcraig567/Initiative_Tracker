@@ -36,7 +36,8 @@ function newSpell() {
     let inner_list = document.createElement('ul');
     let spell_time = document.createElement('li');
     spell_time.value = time;
-    spell_time.innerHTML = `Remaining Time: ${spell_time.value}`;
+    spell_time.classList.add('time');
+    spell_time.innerHTML = `Remaining Time: ${spell_time.value}s`;
     let spell_caster = document.createElement('li');
     spell_caster.value = caster;
     spell_caster.innerHTML = `Caster: ${caster}`;

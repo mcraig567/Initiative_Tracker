@@ -20,7 +20,7 @@
 
 <div id="spell"> 
     <input id="new-spell-name" name="spell" type="text" placeholder="Spell Name" required>
-    <input id="new-spell-duration" name="duration" type="number" placeholder="Length" required min="1">
+    <input id="new-spell-duration" name="duration" type="number" placeholder="Length (seconds)" required min="1">
     <select id="new-spell-conc" name="concentration" required>
         <option value="" disabled selected hidden>Concentration</option>
         <option value="True">True</option>
@@ -40,43 +40,11 @@
 
 <h2>Active Spells</h2>
 <ul id="all-spells">
-    {% for spell in spells %}
-
-        <li class="spell_list">
-            <div>
-                {{ spell.name }}
-            </div>
-
-            <ul>
-                <li>Remaining Time: {{ spell.duration }}</li>
-                <li>Caster: {{ spell.caster }}</li> 
-
-                {% if spell.concentration == True %}
-                    <li>Concentration</li>
-                {% endif %}
-            </ul>
-
-            <form action="{% url 'remove' spell.id %}" method="POST">
-                {% csrf_token %}
-                <input type="submit" name="rem" value="Cancel">
-            </form>
-        </li>
-
-
-    {% endfor %}
-
 </ul>
 
 <div class="bottom_buttons">
-    <form action="{% url 'turn' %}" method="POST" class="button">
-        {% csrf_token %}
-        <input type="submit" value="End Turn">
-    </form>
-
-    <form action="{% url 'clear' %}" method="POST" class="button">
-        {% csrf_token %}
-        <input type="submit" value="End Battle">
-    </form>
+        <button id="end_turn">End Turn</button>
+        <button id="end_battle">End Battle</button>
 </div>
 
 {% endblock %}
