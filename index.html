@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="styles.css" rel="stylesheet">
+        <script src="add_player.js"></script>
+        <script src="add_spell.js"></script>
+        <script src="turn_end.js"></script>
+        <title>Initiative tracker: Keep Track of Turns and Spells!</title>
+    </head>
+<body>
+<div class="topnav">
+    <button id="add-player">Add Character to Battle</button>
+    <button id="add-spell">Add Spell</button>
+</div>
+
+
+<div id="add"> 
+    <input id="new-name" type="text" name="player" placeholder="Character Name">
+    <input id = "new-init" type="number" name="initiative" placeholder="initiative" min="1">
+    <input id="player-add" type="submit" name="add_button" value="Add Character">
+</div>
+
+<div id="spell"> 
+    <input id="new-spell-name" name="spell" type="text" placeholder="Spell Name" required>
+    <input id="new-spell-duration" name="duration" type="number" placeholder="Length (seconds)" required min="1">
+    <select id="new-spell-conc" name="concentration" required>
+        <option value="" disabled selected hidden>Concentration</option>
+        <option value="True">True</option>
+        <option value="False"> False</option>
+    </select>
+    <select id="spell-cast" name="caster" required>
+        <option value="" disabled selected hidden>Caster</option>
+    </select>
+    <input id="spell-add" type="submit" value="Cast">
+</div>
+
+
+<h2>Current Battle</h2>
+<ul class='current-players'>
+        No players yet
+</ul>
+
+<h2>Active Spells</h2>
+<ul id="all-spells">
+</ul>
+
+<div class="bottom_buttons">
+        <button id="end_turn">End Turn</button>
+        <button id="end_battle">End Battle</button>
+</div>
+
+</body>
+</html>
