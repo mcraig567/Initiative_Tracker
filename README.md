@@ -4,6 +4,7 @@ Allows user to track spells casted in battle and tells user when spells have exp
 
 Features to add:
 - Styling
+- Toast for spells expired last turn
 
 Checks to add:
 - Disable new character if name too long, initiative too low or not int
