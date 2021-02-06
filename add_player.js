@@ -5,7 +5,45 @@
 document.addEventListener("DOMContentLoaded", function() {
     document.querySelector('#add-player').onclick = showPlayer;
     document.querySelector('#player-add').onclick = newPlayer;
+    document.querySelector('#new-name').addEventListener('input', checkNameValue);
+    document.querySelector('#new-init').addEventListener('input', checkInitValue)
 });
+
+
+
+function checkNameValue(e) {
+    //Ensure that user is inputting a legit name
+    if (e.target.value.length > 64) {
+        document.querySelector('#player-add').disabled = true;
+        document.querySelector('#too-long').style.display = 'block';
+    } else {
+        document.querySelector('#player-add').disabled = false;
+        document.querySelector('#too-long').style.display = 'none';
+    }
+}
+
+function checkInitValue(e) {
+    //Ensure that the user initiative is an int between -5 and 999
+    let init = e.target.value;
+    init = Number(init)
+    
+    if (Number.isInteger(init) === false) {
+        document.querySelector('#player-add').disabled = true;
+        document.querySelector('#non-int').style.display = 'block';
+    } else {
+        document.querySelector('#player-add').disabled = false;
+        document.querySelector('#non-int').style.display = 'none';
+    }
+
+    if (init > -6 && init < 1000) {
+        document.querySelector('#player-add').disabled = false;
+        document.querySelector('#init-range').style.display = 'none';
+    } else {
+        document.querySelector('#player-add').disabled = true;
+        document.querySelector('#init-range').style.display = 'block';
+    }
+}
+
 
 function showPlayer() {
     //Show the drop down
@@ -22,9 +60,6 @@ function newPlayer(){
     //Get new player information
     let player_name = document.querySelector('#new-name').value;
     let player_init = document.querySelector('#new-init').value;
-
-    //Ensure both are legit
-
 
     //Get list of existing characters
     all_players = document.querySelectorAll('.player_list');

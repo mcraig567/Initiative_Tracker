@@ -18,7 +18,11 @@
     <input id="new-name" type="text" name="player" placeholder="Character Name">
     <input id = "new-init" type="number" name="initiative" placeholder="initiative" min="1">
     <input id="player-add" type="submit" name="add_button" value="Add Character">
+    <div class="error" id="too-long">Character name must be less than 64 characters</div>
+    <div class="error" id="non-int">Initiative must be a whole number</div>
+    <div class="error" id="init-range">Initiative must be between -5 and 999</div>
 </div>
+
 
 <div id="spell"> 
     <input id="new-spell-name" name="spell" type="text" placeholder="Spell Name" required>
