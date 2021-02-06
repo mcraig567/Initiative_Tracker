@@ -3,45 +3,77 @@
 // Adds new player to options for casting a new spell
 
 document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector('#new-init').value = "test";
     document.querySelector('#add-player').onclick = showPlayer;
     document.querySelector('#player-add').onclick = newPlayer;
-    document.querySelector('#new-name').addEventListener('input', checkNameValue);
-    document.querySelector('#new-init').addEventListener('input', checkInitValue)
+    document.querySelector('#new-name').addEventListener('input', checkValues);
+    document.querySelector('#new-init').addEventListener('input', checkValues)
 });
 
+function checkValues() {
+    let name = checkNameValue();
+    let init = checkInitValue();
 
-
-function checkNameValue(e) {
-    //Ensure that user is inputting a legit name
-    if (e.target.value.length > 64) {
-        document.querySelector('#player-add').disabled = true;
-        document.querySelector('#too-long').style.display = 'block';
-    } else {
+    if (name === true && init === true) {
         document.querySelector('#player-add').disabled = false;
-        document.querySelector('#too-long').style.display = 'none';
+    } else {
+        document.querySelector('#player-add').disabled = true;
     }
 }
 
-function checkInitValue(e) {
+function checkNameValue() {
+    let name = document.querySelector('#new-name').value;
+    console.log(name);
+    console.log(name.length);
+
+    let name_test = true;
+
+    //Ensure that user is inputting a legit name
+    if (name.length > 64) {
+        name_test = false;
+        document.querySelector('#too-long').style.display = 'block';
+    } else {
+        document.querySelector('#too-long').style.display = 'none';
+    }
+
+    //For no input
+    if (name.length === 0) {
+        name_test = false;
+    }
+
+    return name_test;
+}
+
+function checkInitValue() {
     //Ensure that the user initiative is an int between -5 and 999
-    let init = e.target.value;
-    init = Number(init)
-    
-    if (Number.isInteger(init) === false) {
-        document.querySelector('#player-add').disabled = true;
+    let init = document.querySelector('#new-init').value;
+    console.log(`before: ${init}`);
+    init_type = Number(init);
+    console.log(init_type);
+    console.log(typeof init_type);
+
+    let init_test = true;
+
+    if (Number.isInteger(init_type) === false) {
+        init_test = false;
         document.querySelector('#non-int').style.display = 'block';
     } else {
-        document.querySelector('#player-add').disabled = false;
         document.querySelector('#non-int').style.display = 'none';
     }
 
-    if (init > -6 && init < 1000) {
-        document.querySelector('#player-add').disabled = false;
+    if (init_type > -6 && init_type < 1000) {
         document.querySelector('#init-range').style.display = 'none';
     } else {
-        document.querySelector('#player-add').disabled = true;
+        init_test = false;
         document.querySelector('#init-range').style.display = 'block';
     }
+
+    //If no input for initiative
+    if (init === "") {
+        init_test = false;
+    }
+
+    return init_test;
 }
 
 
@@ -97,6 +129,7 @@ function newPlayer(){
     player_list.innerHTML = '';
     document.querySelector('#new-name').value = '';
     document.querySelector('#new-init').value = '';
+    document.querySelector('#player-add').disabled = true;
 
     //Create new list of players
     let i;

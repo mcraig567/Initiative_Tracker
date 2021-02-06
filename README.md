@@ -7,5 +7,4 @@ Features to add:
 - Toast for spells expired last turn
 
 Checks to add:
-- Disable new character if name too long, initiative too low or not int
 - Disable new spell if name too long, duration negative
