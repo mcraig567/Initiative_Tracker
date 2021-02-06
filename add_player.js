@@ -3,14 +3,15 @@
 // Adds new player to options for casting a new spell
 
 document.addEventListener("DOMContentLoaded", function() {
-    document.querySelector('#new-init').value = "test";
     document.querySelector('#add-player').onclick = showPlayer;
     document.querySelector('#player-add').onclick = newPlayer;
-    document.querySelector('#new-name').addEventListener('input', checkValues);
-    document.querySelector('#new-init').addEventListener('input', checkValues)
+    document.querySelectorAll('.player-input').forEach(i => {
+        i.addEventListener('input', checkPlayerValues);
+    })
 });
 
-function checkValues() {
+function checkPlayerValues() {
+    //Runs checks on both name and initiative, and allows player addition if both ok
     let name = checkNameValue();
     let init = checkInitValue();
 
@@ -22,11 +23,9 @@ function checkValues() {
 }
 
 function checkNameValue() {
+    //Ensure that user is inputting a legit name
     let name = document.querySelector('#new-name').value;
-    console.log(name);
-    console.log(name.length);
-
-    let name_test = true;
+    let name_test = true; //Switch to false if issues
 
     //Ensure that user is inputting a legit name
     if (name.length > 64) {
@@ -47,12 +46,8 @@ function checkNameValue() {
 function checkInitValue() {
     //Ensure that the user initiative is an int between -5 and 999
     let init = document.querySelector('#new-init').value;
-    console.log(`before: ${init}`);
-    init_type = Number(init);
-    console.log(init_type);
-    console.log(typeof init_type);
-
-    let init_test = true;
+    let init_type = Number(init);
+    let init_test = true; //Switch to false if issues
 
     if (Number.isInteger(init_type) === false) {
         init_test = false;
@@ -68,7 +63,7 @@ function checkInitValue() {
         document.querySelector('#init-range').style.display = 'block';
     }
 
-    //If no input for initiative
+    //If no input for initiative, need to check non-parsed input
     if (init === "") {
         init_test = false;
     }

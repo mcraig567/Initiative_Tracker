@@ -4,7 +4,99 @@
 document.addEventListener("DOMContentLoaded", function() {
     document.querySelector('#add-spell').onclick = showSpell;
     document.querySelector('#spell-add').onclick = newSpell;
+    document.querySelectorAll('.spell-input').forEach(i => {
+        i.addEventListener('input', checkSpellValues);
+    })
 });
+
+function checkSpellValues() {
+    //Creates a list of completed checks, and disabled button if any are false
+    let checks = [];
+    let spellName = checkSpellName();
+    checks.push(spellName);
+
+    let spellLength = checkSpellTime();
+    checks.push(spellLength);
+
+    let spellConc = checkSpellConc();
+    checks.push(spellConc);
+
+    let spellCast = checkSpellCaster();
+    checks.push(spellCast);
+
+    document.querySelector('#spell-add').disabled = false; //Set enabled, disable if any issues
+    let i;
+    for(i = 0; i < checks.length; i++) {
+        if (checks[i] === false) {
+            document.querySelector('#spell-add').disabled = true;
+        }
+    }
+}
+
+function checkSpellName() {
+    //Ensure that user is inputing a legit name
+    let name = document.querySelector('#new-spell-name').value;
+    let name_test = true; //Switch to false if issues
+
+    //Ensure that user is inputing a legit name
+    if (name.length > 64) {
+        name_test = false;
+        document.querySelector('#spell-too-long').style.display = 'block';
+    } else {
+        document.querySelector('#spell-too-long').style.display = 'none';
+    }
+
+    //For no input
+    if (name.length === 0) {
+        name_test = false;
+    }
+
+    return name_test;
+}
+
+function checkSpellTime() {
+    let time = document.querySelector('#new-spell-duration').value;
+    let time_test = true; //Switch to false if issues
+    let time_type = Number(time);
+
+    //Ensure that input is a whole number
+    if (Number.isInteger(time_type) === false) {
+        time_test = false;
+        document.querySelector('#spell-non-int').style.display = 'block';
+    } else {
+        document.querySelector('#spell-non-int').style.display = 'none';
+    }
+
+    if (time_type < 0) {
+        time_test = false;
+        document.querySelector('#too-short').style.display = 'block';
+    } else {
+        document.querySelector('#too-short').style.display = 'none';
+    }
+
+    //For no input
+    if (time === "") {
+        time_test = false;
+    }
+
+    return time_test;
+}
+
+function checkSpellConc() {
+    if (document.querySelector('#new-spell-conc').value === "") {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function checkSpellCaster() {
+    if (document.querySelector('#spell-cast').value === "") {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 function showSpell() {
     // Show the drop down

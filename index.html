@@ -15,8 +15,8 @@
 
 
 <div id="add"> 
-    <input id="new-name" type="text" name="player" placeholder="Character Name">
-    <input id = "new-init" type="number" name="initiative" placeholder="initiative" min="-5">
+    <input id="new-name" class="player-input" type="text" name="player" placeholder="Character Name">
+    <input id = "new-init" class="player-input" type="number" name="initiative" placeholder="initiative" min="-5">
     <input id="player-add" class="add-button" type="submit" name="add_button" value="Add Character" disabled>
     <div class="error" id="too-long">Character name must be less than 64 characters</div>
     <div class="error" id="non-int">Initiative must be a whole number</div>
@@ -25,17 +25,20 @@
 
 
 <div id="spell"> 
-    <input id="new-spell-name" name="spell" type="text" placeholder="Spell Name" required>
-    <input id="new-spell-duration" name="duration" type="number" placeholder="Length (seconds)" required min="1">
-    <select id="new-spell-conc" name="concentration" required>
+    <input id="new-spell-name" class="spell-input" name="spell" type="text" placeholder="Spell Name" required>
+    <input id="new-spell-duration" class="spell-input" name="duration" type="number" placeholder="Length (seconds)" required min="1">
+    <select id="new-spell-conc" class="spell-input" name="concentration" required>
         <option value="" disabled selected hidden>Concentration</option>
         <option value="True">True</option>
         <option value="False"> False</option>
     </select>
-    <select id="spell-cast" name="caster" required>
+    <select id="spell-cast" class="spell-input" name="caster" required>
         <option value="" disabled selected hidden>Caster</option>
     </select>
-    <input id="spell-add" class="add-button" type="submit" value="Cast">
+    <input id="spell-add" class="add-button" type="submit" value="Cast" disabled>
+    <div class="error" id="too-short">Spell duration can't be negative</div>
+    <div class="error" id="spell-non-int">Spell duration must be a whole number</div>
+    <div class="error" id="spell-too-long">Spell name must be less than 64 characters</div>
 </div>
 
 
