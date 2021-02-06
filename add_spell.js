@@ -119,7 +119,7 @@ function newSpell() {
     // Create new list element
     let spell_elem = document.createElement('li');
     spell_elem.classList.add('spell_list');
-    spell_elem.classList.add(`spell-${caster}`);
+    spell_elem.classList.add(`spell-${caster}`); //For easy removal
     spell_name = document.createElement('div');
     spell_name_text = document.createTextNode(`${spell}`);
     spell_name.appendChild(spell_name_text);
@@ -152,13 +152,22 @@ function newSpell() {
 
     spell_elem.appendChild(inner_list);
     spell_elem.appendChild(rm_spell);
+    spell_elem.setAttribute('data-value', spell_time.value);
 
-    //Add new spell list item to full list
-    document.querySelector('#all-spells').appendChild(spell_elem);
+    //Add new spell list item to full list and sort
+    all_spells = document.querySelectorAll('.spell_list');
+    all_spells = Array.from(all_spells);
+    all_spells.push(spell_elem);
+    all_spells.sort((a,b) => a.dataset.value - b.dataset.value);
 
-    //Add the caster to the element classlist for easy removal
-    spell_elem.classList.add(`spell-${caster}`);
-    console.log(`Adding spell by ${caster}`);
+    //Reset spell list and create sorted list
+    spells = document.querySelector('#all-spells');
+    spells.innerHTML = "";
+
+    let i;
+    for (i = 0; i < all_spells.length; i++) {
+        spells.appendChild(all_spells[i]);
+    }
 
     //Reset inputs to blank
     document.querySelector('#new-spell-name').value = "";

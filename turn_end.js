@@ -57,6 +57,7 @@ function endTurn() {
 
             } else {
                 spell_times[i].value = time;
+                spell_times[i].parentNode.parentNode.dataset.value = time;
                 spell_times[i].innerHTML = `Remaining Time: ${spell_times[i].value}s`;
             };        
         };
