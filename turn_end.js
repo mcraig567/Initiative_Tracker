@@ -12,27 +12,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function endTurn() {
     console.log('Next Turn')
-    //Get list of all remaining spell durations (li elements)
-    let spell_times = document.querySelectorAll('.time');
-    //console.log(spell_times)
+    // //Get list of all remaining spell durations (li elements)
+    // let spell_times = document.querySelectorAll('.time');
+    // //console.log(spell_times)
     
-    if (document.querySelector('#end_turn').innerHTML === "Start Battle") {
-        document.querySelector('#end_turn').innerHTML = "End Turn";
-    };
+    // if (document.querySelector('#end_turn').innerHTML === "Start Battle") {
+    //     document.querySelector('#end_turn').innerHTML = "End Turn";
+    // };
 
-    let i;
-    //Iterate through spells, decreasing time by 6 seconds, and removing if time is below 0
-    for (i = 0; i < spell_times.length; i++) {
-        let time = spell_times[i].value;
-        time -= 6;
+    // let i;
+    // //Iterate through spells, decreasing time by 6 seconds, and removing if time is below 0
+    // for (i = 0; i < spell_times.length; i++) {
+    //     let time = spell_times[i].value;
+    //     time -= 6;
 
-        if (time <= 0) {
-            spell_times[i].parentNode.parentNode.parentNode.removeChild(spell_times[i].parentNode.parentNode);
-        } else {
-            spell_times[i].value = time;
-            spell_times[i].innerHTML = `Remaining Time: ${spell_times[i].value}s`;
-        };        
-    };
+    //     if (time <= 0) {
+    //         spell_times[i].parentNode.parentNode.parentNode.removeChild(spell_times[i].parentNode.parentNode);
+    //     } else {
+    //         spell_times[i].value = time;
+    //         spell_times[i].innerHTML = `Remaining Time: ${spell_times[i].value}s`;
+    //     };        
+    // };
 
     //Get list of all players
     let players = document.querySelectorAll('.player_list');
@@ -44,6 +44,29 @@ function endTurn() {
     //Reset turns when end of players
     if (turn === players.length - 1) {
         turn = 0;
+
+        //Get list of all remaining spell durations (li elements)
+        let spell_times = document.querySelectorAll('.time');
+        //console.log(spell_times)
+        
+        if (document.querySelector('#end_turn').innerHTML === "Start Battle") {
+            document.querySelector('#end_turn').innerHTML = "End Turn";
+        };
+
+        let i;
+        //Iterate through spells, decreasing time by 6 seconds, and removing if time is below 0
+        for (i = 0; i < spell_times.length; i++) {
+            let time = spell_times[i].value;
+            time -= 6;
+
+            if (time <= 0) {
+                spell_times[i].parentNode.parentNode.parentNode.removeChild(spell_times[i].parentNode.parentNode);
+            } else {
+                spell_times[i].value = time;
+                spell_times[i].innerHTML = `Remaining Time: ${spell_times[i].value}s`;
+            };        
+        };
+
     } else {
         turn ++
     };
