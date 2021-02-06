@@ -131,7 +131,7 @@ function newSpell() {
     spell_time.classList.add('time');
     spell_time.innerHTML = `Remaining Time: ${spell_time.value}s`;
     let spell_caster = document.createElement('li');
-    spell_caster.value = caster;
+    spell_caster.setAttribute('data-value', caster);
     spell_caster.innerHTML = `Caster: ${caster}`;
 
     inner_list.appendChild(spell_time);
@@ -165,6 +165,7 @@ function newSpell() {
     document.querySelector('#new-spell-duration').value = "";
     document.querySelector('#new-spell-conc').value = "";
     document.querySelector('#spell-cast').value = "";
+    document.querySelector('#spell-add').disabled = true;
 };
 
 function removeSpell() {
