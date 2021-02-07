@@ -3,7 +3,7 @@
     overflow: hidden;
 }
 
-.topnav a {
+.topnav div {
     float: left;
     color: #f2f2f2;
     text-align: center;
@@ -12,24 +12,37 @@
     font-size: 17px;
 }
 
-.topnav a:hover {
+.topnav div:hover {
     background-color: #ddd;
     color: black;
+    cursor: default;
 }
 
 h2 {
     padding: 0 16px;
 }
 
+
+.add-button, .kill_button {
+    border: 1px solid gray;
+    border-radius: 2px;
+}
+
+.kill_button {
+    margin-right: 10px;
+}
+
+
 .player_list {
     display: flex;
     align-content: center;
+    margin: 3px;
+    width: 450px;
 
 }
 
 .player {
-    width: 27%;
-    margin: 3px;
+    width: 100%;
 }
 
 #add, #spell {
@@ -45,19 +58,29 @@ h2 {
 
 .spell_list {
     display: flex;
+    margin: 5px 0;
+    width: 630px;
 }
 
 .spell_list div {
-    width: 10%;
+    width: 18%;
 }
 
 .spell_list ul {
     list-style-type: none;
     margin-bottom: 10px;
     padding-inline-start: 20px;
-    width: 20%
+    width: 75%
 }
 
+.spell-input {
+    max-width: 170px;
+}
+
+.spell-remove {
+    height: 27px;
+    margin: 3px 0;
+}
 
 .bottom_buttons {
     display: flex;

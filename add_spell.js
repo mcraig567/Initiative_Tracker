@@ -149,6 +149,16 @@ function newSpell() {
     rm_spell.classList.add('spell-remove');
     rm_spell.innerHTML = 'Remove';
     rm_spell.onclick = removeSpell;
+    console.log("Added first event");
+    //Highlight the spell to remove
+    rm_spell.addEventListener('mouseenter', (event) => {
+        console.log("Changing Background");
+        event.target.parentNode.style.backgroundColor = '#ddd';
+    });
+    rm_spell.addEventListener('mouseleave', (event) => {
+        console.log("Changing Background");
+        event.target.parentNode.style.backgroundColor = 'transparent';
+    });
 
     spell_elem.appendChild(inner_list);
     spell_elem.appendChild(rm_spell);

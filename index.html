@@ -9,8 +9,8 @@
     </head>
 <body>
 <div class="topnav">
-    <button id="add-player">Add Character to Battle</button>
-    <button id="add-spell">Add Spell</button>
+    <div id="add-player">Add Character</div>
+    <div id="add-spell">Add Spell</div>
 </div>
 
 
@@ -18,7 +18,7 @@
     <input id="new-name" class="player-input" type="text" name="player" placeholder="Character Name">
     <input id = "new-init" class="player-input" type="number" name="initiative" placeholder="initiative" min="-5">
     <input id="player-add" class="add-button" type="submit" name="add_button" value="Add Character" disabled>
-    <div class="error" id="too-long">Character name must be less than 64 characters</div>
+    <div class="error" id="too-long">Character name must be less than 40 characters</div>
     <div class="error" id="non-int">Initiative must be a whole number</div>
     <div class="error" id="init-range">Initiative must be between -5 and 999</div>
 </div>

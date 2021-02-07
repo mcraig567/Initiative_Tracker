@@ -28,7 +28,7 @@ function checkNameValue() {
     let name_test = true; //Switch to false if issues
 
     //Ensure that user is inputting a legit name
-    if (name.length > 64) {
+    if (name.length > 40) {
         name_test = false;
         document.querySelector('#too-long').style.display = 'block';
     } else {
@@ -104,7 +104,7 @@ function newPlayer(){
     let player_textNode = document.createTextNode(`${player_name} - Init: ${player_init}`);
  
     player_text.appendChild(player_textNode);
-    new_player.appendChild(player_text);
+    //new_player.appendChild(player_text);
 
     //Create kill button and append to new player element
     let kill = document.createElement('input');
@@ -113,7 +113,19 @@ function newPlayer(){
     kill.value = 'kill';
     kill.classList.add('kill_button');
     kill.onclick = removePlayer;
+
+    //Highlight player to remove
+    kill.addEventListener('mouseenter', (event) => {
+        console.log("Changing Background");
+        event.target.parentNode.style.backgroundColor = '#ddd';
+    });
+    kill.addEventListener('mouseleave', (event) => {
+        console.log("Changing Background");
+        event.target.parentNode.style.backgroundColor = 'transparent';
+    });
+
     new_player.appendChild(kill);
+    new_player.appendChild(player_text);
 
     //Add new player to player list and sort
     all_players.push(new_player);
