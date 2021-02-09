@@ -1,13 +1,27 @@
 // On push "End Turn" button, switch the active player down to next
 // Remove time from all spells
 // Remove any expired spells
-//
+// At end of all players turns (and start of battle), saves players and spells as cookies
 
 let turn = -1 // Keeps track of who's turn it is, set -1 so first turn is player 0
 
 document.addEventListener("DOMContentLoaded", function() {
     document.querySelector('#end_turn').onclick = endTurn;
     document.querySelector('#end_battle').onclick = endBattle;
+
+    //Check for cookies on page load
+    if(localStorage.getItem('spells')) {
+        document.querySelector('#all-spells').innerHTML = localStorage.getItem('spells');
+    };
+    
+    if (localStorage.getItem('players')) {
+        document.querySelector('#current-players').innerHTML = localStorage.getItem('players');
+        document.querySelector('#spell-cast').innerHTML = localStorage.getItem('casters');
+    };
+
+    if (localStorage.getItem('turn')) {
+        turn = localStorage.getItem('turn');
+    };
 });
 
 function endTurn() {
@@ -15,17 +29,22 @@ function endTurn() {
 
     if (document.querySelector('#end_turn').innerHTML === "Start Battle") {
         document.querySelector('#end_turn').innerHTML = "End Turn";
+        let spells = document.querySelector('#all-spells').innerHTML;
+        let chars = document.querySelector('#current-players').innerHTML;
+        let casters = document.querySelector('#spell-cast').innerHTML;
+        //Save cookies at beginning of battle
+        localStorage.setItem('spells', spells);
+        localStorage.setItem("players", chars);
+        localStorage.setItem('casters', casters);
+
     };
 
     //Get list of all players
     let players = document.querySelectorAll('.player_list');
     players = Array.from(players);
 
-    let player_list = document.querySelector('.current-players');
-    player_list.innerHTML = "";
-
     //Reset turns when end of players
-    if (turn === players.length - 1) {
+    if (turn == players.length - 1) {
         turn = 0;
 
         //All players have gone (in 6 seconds), so reduce all spells by 6 seconds
@@ -59,7 +78,7 @@ function endTurn() {
                 spell_times[i].value = time;
                 spell_times[i].parentNode.parentNode.dataset.value = time;
                 spell_times[i].innerHTML = `Remaining Time: ${spell_times[i].value}s`;
-            };        
+            };    
         };
 
         //Only show toast if spells have expired
@@ -71,6 +90,10 @@ function endTurn() {
         turn ++
     };
 
+    //Clear old player list and make again
+    let player_list = document.querySelector('.current-players');
+    player_list.innerHTML = "";
+
     //Add bold font when players turn
     for (i = 0; i < players.length; i++) {
         if (i == turn) {
@@ -81,6 +104,15 @@ function endTurn() {
 
         player_list.appendChild(players[i]);
     };
+
+    //Save turn data to local storage
+    let spells = document.querySelector('#all-spells').innerHTML;
+    let chars = document.querySelector('#current-players').innerHTML;
+    let casters = document.querySelector('#spell-cast').innerHTML;
+    localStorage.setItem("spells", spells);
+    localStorage.setItem("players", chars);
+    localStorage.setItem("casters", casters);
+    localStorage.setItem("turn", turn);
 };
 
 function endBattle() {
@@ -91,6 +123,10 @@ function endBattle() {
     document.querySelector('.current-players').innerHTML = "No players yet";
     turn = -1;
     document.querySelector('#end_turn').innerHTML = "Start Battle";
+    localStorage.setItem("spells", "");
+    localStorage.setItem("players", "");
+    localStorage.setItem("turn", "");
+    
 };
 
 function showToast() {
