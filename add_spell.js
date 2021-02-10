@@ -141,7 +141,10 @@ function newSpell() {
     if (concentration == 'True') {
         let spell_conc = document.createElement('li');
         spell_conc.innerHTML = 'Concentration'
+        spell_elem.setAttribute('data-conc', true);
         inner_list.appendChild(spell_conc);
+    } else {
+        spell_elem.setAttribute('data-conc', false);
     };
 
     //Create button to remove spell
@@ -163,6 +166,7 @@ function newSpell() {
     spell_elem.appendChild(inner_list);
     spell_elem.appendChild(rm_spell);
     spell_elem.setAttribute('data-value', spell_time.value);
+    spell_elem.setAttribute('data-caster', caster);
 
     //Add new spell list item to full list and sort
     all_spells = document.querySelectorAll('.spell_list');
