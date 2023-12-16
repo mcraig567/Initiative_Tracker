@@ -180,5 +180,6 @@ function removePlayer(){
     all_players = document.querySelectorAll('.player_list');
     if (all_players.length == 0) {
         document.querySelector('.current-players').innerHTML = "No players yet";
+        localStorage.setItem('players', "");
     };
 };

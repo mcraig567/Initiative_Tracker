@@ -38,7 +38,7 @@ function endTurn() {
     let players = document.querySelectorAll('.player_list');
     players = Array.from(players);
 
-    //Reset turns when end of players CHECK THIS
+    //Reset turns when end of players
     if (players.length == 0) {
         console.log("Why are you clicking start now? Add players instead");
 
@@ -105,7 +105,16 @@ function endTurn() {
 
     //Save turn data to local storage
     let spells = spellToJSON();
-    let chars = playerToJSON();
+
+    //Dont save chars as a blank array if empty, instead as None
+    let chars;
+    if (players.length > 0) {
+        chars = playerToJSON();
+    } else {
+        chars = "";
+        player_list.innerHTML = "No players yet";
+    };
+
     localStorage.setItem("spells", spells);
     localStorage.setItem("players", chars);
     localStorage.setItem("turn", turn);

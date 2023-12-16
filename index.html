@@ -9,48 +9,77 @@
     </head>
 <body>
 <div class="topnav">
-    <div id="add-player">Add Character</div>
-    <div id="add-spell">Add Spell</div>
+	<div id="mainTitle">
+		<div>
+			BattleROUNDS
+		</div>
+	</div>
+	<div id="add-buttons">
+		<div id="add-player">Add Character</div>
+		<div id="add-spell">Add Spell</div>
+		<div id="add-affect">Add Effect</div>
+	</div>
 </div>
 
+<!--Section shows up when an add button is selected, disappears if not in use-->
+<div id="add-section">
+	<div id="add"> 
+		<input id="new-name" class="player-input" type="text" name="player" placeholder="Character Name">
+		<input id = "new-init" class="player-input" type="number" name="initiative" placeholder="initiative" min="-5">
+		<input id="player-add" class="add-button" type="submit" name="add_button" value="Add Character" disabled>
+		<div class="error" id="too-long">Character name must be less than 40 characters</div>
+		<div class="error" id="non-int">Initiative must be a whole number</div>
+		<div class="error" id="init-range">Initiative must be between -5 and 999</div>
+	</div>
 
-<div id="add"> 
-    <input id="new-name" class="player-input" type="text" name="player" placeholder="Character Name">
-    <input id = "new-init" class="player-input" type="number" name="initiative" placeholder="initiative" min="-5">
-    <input id="player-add" class="add-button" type="submit" name="add_button" value="Add Character" disabled>
-    <div class="error" id="too-long">Character name must be less than 40 characters</div>
-    <div class="error" id="non-int">Initiative must be a whole number</div>
-    <div class="error" id="init-range">Initiative must be between -5 and 999</div>
+	<div id="spell"> 
+		<input id="new-spell-name" class="spell-input" name="spell" type="text" placeholder="Spell Name" required>
+		<input id="new-spell-duration" class="spell-input" name="duration" type="number" placeholder="Length (seconds)" required min="1">
+		<select id="new-spell-conc" class="spell-input" name="concentration" required>
+			<option value="" disabled selected hidden>Concentration</option>
+			<option value="True">True</option>
+			<option value="False"> False</option>
+		</select>
+		<select id="spell-cast" class="spell-input" name="caster" required>
+			<option value="" disabled selected hidden>Caster</option>
+		</select>
+		<input id="spell-add" class="add-button" type="submit" value="Cast" disabled>
+		<div class="error" id="too-short">Spell duration can't be negative</div>
+		<div class="error" id="spell-non-int">Spell duration must be a whole number</div>
+		<div class="error" id="spell-too-long">Spell name must be less than 64 characters</div>
+	</div>
+
+	<div id="new-effect">
+		<input id="new-effect-name" class="player-input" type="text" name="effect" placeholder="Lair Effect">
+		<input id = "new-init" class="player-input" type="number" name="initiative" placeholder="initiative" min="-5">
+		<input id="player-add" class="add-button" type="submit" name="add_button" value="Add Effect" disabled>
+		<div class="error" id="too-long">Effect name must be less than 40 characters</div>
+		<div class="error" id="non-int">Initiative must be a whole number</div>
+		<div class="error" id="init-range">Initiative must be between -5 and 999</div>
+	</div>
 </div>
 
-
-<div id="spell"> 
-    <input id="new-spell-name" class="spell-input" name="spell" type="text" placeholder="Spell Name" required>
-    <input id="new-spell-duration" class="spell-input" name="duration" type="number" placeholder="Length (seconds)" required min="1">
-    <select id="new-spell-conc" class="spell-input" name="concentration" required>
-        <option value="" disabled selected hidden>Concentration</option>
-        <option value="True">True</option>
-        <option value="False"> False</option>
-    </select>
-    <select id="spell-cast" class="spell-input" name="caster" required>
-        <option value="" disabled selected hidden>Caster</option>
-    </select>
-    <input id="spell-add" class="add-button" type="submit" value="Cast" disabled>
-    <div class="error" id="too-short">Spell duration can't be negative</div>
-    <div class="error" id="spell-non-int">Spell duration must be a whole number</div>
-    <div class="error" id="spell-too-long">Spell name must be less than 64 characters</div>
+<!--Header for Battle & Number of Rounds-->
+<div id="battle-header">
+	<div id="battle-round">Battle Setup</div>
 </div>
 
+<!--Display of players on the left and spells on the right-->
+<div id="main-display">
+	<div id="all-players">
+		<ul class='current-players' id="current-players">
+				No players yet
+		</ul>
+	</div>
 
-<h2>Current Battle</h2>
-<ul class='current-players' id="current-players">
-        No players yet
-</ul>
+	<div id="all-spells">
+		<h2>Active Spells</h2>
+		<ul id="all-spells">
+		</ul>
+	</div>
+</div>
 
-<h2>Active Spells</h2>
-<ul id="all-spells">
-</ul>
-
+<!--Buttons to start/end battle and end turn-->
 <div class="bottom_buttons">
         <button id="end_turn">Start Battle</button>
         <button id="end_battle">End Battle</button>
