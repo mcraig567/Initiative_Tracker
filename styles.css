@@ -12,16 +12,29 @@
     font-size: 17px;
 }
 
-.topnav div:hover {
+.topnav #add-buttons div:hover {
     background-color: #ddd;
     color: black;
     cursor: default;
 }
 
+#main-logo{
+	width: 50px;
+}
+
+#main-title{
+	width: 67%;
+}
+
+#title{
+	font-weight: bold;
+	font-size: xxx-large;	
+	font-family: sans-serif;
+}
+
 h2 {
     padding: 0 16px;
 }
-
 
 .add-button, .kill_button {
     border: 1px solid gray;
@@ -31,7 +44,6 @@ h2 {
 .kill_button {
     margin-right: 10px;
 }
-
 
 .player_list {
     display: flex;
@@ -45,7 +57,7 @@ h2 {
     width: 100%;
 }
 
-#add, #spell {
+#add, #spell, #add-section, #new-effect {
     display: none;
     padding: 14px 0;
 }

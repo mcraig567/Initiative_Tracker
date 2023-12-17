@@ -71,16 +71,30 @@ function checkInitValue() {
     return init_test;
 }
 
-
 function showPlayer() {
     //Show the drop down
-    let current = document.querySelector('#add');
-    
-    if (current.style.display == 'block') {
-       current.style.display = 'none'
-    } else {
-       current.style.display = 'block'
-    };
+	let main_display = document.querySelector('#add-section');
+	let add_player_section = document.querySelector('#add');
+
+	let add_spell_section = document.querySelector('#spell');
+	let add_effect_section = document.querySelector('#new-effect');
+	add_spell_section.style.display = 'none'
+	add_effect_section.style.display = 'none'
+
+	// Nothing is showing
+	if (main_display.style.display == 'none' && add_player_section.style.display == 'none') {
+		main_display.style.display = 'block'
+		add_player_section.style.display = 'block'
+	
+	// Some other add option was open
+	} else if (main_display.style.display != 'none' && add_player_section.style.display == 'none') {
+		add_player_section.style.display = 'block'
+	
+	// Player add was open, close it all
+	} else if (main_display.style.display != 'none') {
+		add_player_section.style.display = 'none'
+		main_display.style.display = 'none'
+	};    
 };
 
 function newPlayer(){
