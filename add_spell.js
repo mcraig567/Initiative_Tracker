@@ -99,14 +99,29 @@ function checkSpellCaster() {
 }
 
 function showSpell() {
-    // Show the drop down
-    let current = document.querySelector('#spell');
-    
-    if (current.style.display == 'block') {
-       current.style.display = 'none'
-    } else {
-       current.style.display = 'block'
-    };    
+    //Show the drop down
+	let main_display = document.querySelector('#add-section');
+	let add_spell_section = document.querySelector('#spell');
+
+	let add_player_section = document.querySelector('#add');
+	let add_effect_section = document.querySelector('#new-effect');
+	add_player_section.style.display = 'none'
+	add_effect_section.style.display = 'none'
+
+	// Nothing is showing
+	if (main_display.style.display != 'flex') {
+		main_display.style.display = 'flex'
+		add_spell_section.style.display = 'flex'
+	
+	// Some other add option was open
+	} else if (main_display.style.display != 'none' && add_spell_section.style.display != 'flex') {
+		add_spell_section.style.display = 'flex'
+	
+	// Player add was open, close it all
+	} else if (main_display.style.display != 'none') {
+		add_spell_section.style.display = 'none'
+		main_display.style.display = 'none'
+	};    
 };
 
 function newSpell() {
@@ -120,53 +135,124 @@ function newSpell() {
     let spell_elem = document.createElement('li');
     spell_elem.classList.add('spell_list');
     spell_elem.classList.add(`spell-${caster}`); //For easy removal
-    spell_name = document.createElement('div');
-    spell_name_text = document.createTextNode(`${spell}`);
-    spell_name.appendChild(spell_name_text);
-    spell_elem.appendChild(spell_name);
 
-    let inner_list = document.createElement('ul');
-    let spell_time = document.createElement('li');
-    spell_time.value = time;
-    spell_time.classList.add('time');
-    spell_time.innerHTML = `Remaining Time: ${spell_time.value}s`;
-    let spell_caster = document.createElement('li');
-    spell_caster.setAttribute('data-value', caster);
-    spell_caster.innerHTML = `Caster: ${caster}`;
+	// Create HTML sections for styling
 
-    inner_list.appendChild(spell_time);
-    inner_list.appendChild(spell_caster);
+	// Left is image only
+	let left_div = document.createElement('div');
+	left_div.classList.add('spell-left-div');
 
-    //Add note if spell requires concentration
-    if (concentration == 'True') {
-        let spell_conc = document.createElement('li');
-        spell_conc.innerHTML = 'Concentration'
+	let spell_img_container = document.createElement('div');
+	spell_img_container.classList.add('spell-img-container');
+
+	let spell_image = new Image();
+	spell_image.src = 'images/spell-icon.png';
+	spell_image.alt = 'Spell Logo';
+	spell_image.classList.add('spell-logo');
+
+	spell_img_container.appendChild(spell_image);
+	left_div.appendChild(spell_img_container);
+
+	// Middle contains spell name & caster
+	let mid_div = document.createElement('div');
+	mid_div.classList.add('spell-mid-div');
+
+	let top_name_container = document.createElement('div');
+	top_name_container.classList.add('spell-mid-topname-container');
+	let top_name = document.createTextNode(`${caster}`);
+	top_name_container.appendChild(top_name);
+	top_name_container.setAttribute('data-value', caster);
+
+	let bottom_name_container = document.createElement('div');
+	bottom_name_container.classList.add('spell-mid-botname-container');
+	let bottom_name = document.createTextNode(`${spell}`);
+	bottom_name_container.appendChild(bottom_name);
+
+	mid_div.appendChild(top_name_container);
+	mid_div.appendChild(bottom_name_container);
+
+	// Right contains remaining length, concentration (if application), and removal button
+	let right_div = document.createElement('div');
+	right_div.classList.add('spell-right-div');
+
+	let rem_button_container = document.createElement('div');
+	let time_container = document.createElement('div');
+	let conc_container = document.createElement('div');
+
+	rem_button_container.classList.add('spell-remove-container');
+	time_container.classList.add('spell-time-container');
+	conc_container.classList.add('spell-conc-container');
+
+	let rem_button = document.createElement('div');
+	rem_button.value = 'x';
+	rem_button.classList.add('spell-remove');
+	rem_button_container.appendChild(rem_button);
+	rem_button.appendChild(document.createTextNode('x'));
+
+	// Placeholder for when remove button is hidden
+	let rem_placeholder = document.createElement('div');
+	rem_placeholder.classList.add('spell-remove-placeholder');
+	rem_button_container.appendChild(rem_placeholder);
+
+	let spell_time = document.createTextNode('');
+	spell_time.value = time;
+	spell_time.nodeValue = `${spell_time.value} sec`;
+	time_container.classList.add('time');
+	time_container.appendChild(spell_time);
+
+	let spell_conc = document.createTextNode('');
+	if (concentration == 'True') {
+        spell_conc.nodeValue = 'Conc';
         spell_elem.setAttribute('data-conc', true);
-        inner_list.appendChild(spell_conc);
     } else {
+		spell_conc.nodeValue = '';
         spell_elem.setAttribute('data-conc', false);
     };
+	conc_container.appendChild(spell_conc);
 
-    //Create button to remove spell
-    let rm_spell = document.createElement('button');
-    rm_spell.classList.add('spell-remove');
-    rm_spell.innerHTML = 'Remove';
-    rm_spell.onclick = removeSpell;
-    console.log("Added first event");
-    //Highlight the spell to remove
-    rm_spell.addEventListener('mouseenter', (event) => {
-        console.log("Changing Background");
-        event.target.parentNode.style.backgroundColor = '#ddd';
-    });
-    rm_spell.addEventListener('mouseleave', (event) => {
-        console.log("Changing Background");
-        event.target.parentNode.style.backgroundColor = 'transparent';
-    });
+	right_div.appendChild(rem_button_container);
+	right_div.appendChild(time_container);
+	right_div.appendChild(conc_container);
 
-    spell_elem.appendChild(inner_list);
-    spell_elem.appendChild(rm_spell);
-    spell_elem.setAttribute('data-value', spell_time.value);
+	// Add all the html together
+	spell_elem.appendChild(left_div);
+	spell_elem.appendChild(mid_div);
+	spell_elem.appendChild(right_div);
+	spell_elem.setAttribute('data-value', spell_time.value);
     spell_elem.setAttribute('data-caster', caster);
+
+	// Add functionality to show & hide remove button
+	spell_elem.addEventListener('mouseenter', (event) => {
+        console.log("Showing remove button");
+		let remove_target = 
+			event.target.querySelector('.spell-right-div')
+			.querySelector('.spell-remove-container');
+
+		remove_target.querySelector('.spell-remove').style.display = 'flex';
+		remove_target.querySelector('.spell-remove-placeholder').style.display = 'none';		
+    });
+    spell_elem.addEventListener('mouseleave', (event) => {
+        console.log("Hiding remove button");
+		let remove_target = 
+			event.target.querySelector('.spell-right-div')
+			.querySelector('.spell-remove-container');
+
+		remove_target.querySelector('.spell-remove').style.display = 'none';
+		remove_target.querySelector('.spell-remove-placeholder').style.display = 'flex';
+    });	
+
+	// Add functionality to remove button
+    rem_button.onclick = removeSpell;
+
+    //Highlight the spell to remove
+    rem_button.addEventListener('mouseenter', (event) => {
+        console.log("Changing Background");
+        event.target.parentNode.parentNode.parentNode.style.backgroundColor = '#ddd';
+    });
+    rem_button.addEventListener('mouseleave', (event) => {
+        console.log("Changing Background");
+        event.target.parentNode.parentNode.parentNode.style.backgroundColor = 'transparent';
+    });
 
     //Add new spell list item to full list and sort
     all_spells = document.querySelectorAll('.spell_list');
@@ -175,7 +261,7 @@ function newSpell() {
     all_spells.sort((a,b) => a.dataset.value - b.dataset.value);
 
     //Reset spell list and create sorted list
-    spells = document.querySelector('#all-spells');
+    spells = document.querySelector('#current-spells');
     spells.innerHTML = "";
 
     let i;
@@ -192,5 +278,5 @@ function newSpell() {
 };
 
 function removeSpell() {
-    this.parentNode.parentNode.removeChild(this.parentNode);
+    this.parentNode.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode.parentNode);
 }
