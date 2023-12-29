@@ -104,23 +104,21 @@ function showSpell() {
 	let add_spell_section = document.querySelector('#spell');
 
 	let add_player_section = document.querySelector('#add');
-	let add_effect_section = document.querySelector('#new-effect');
-	add_player_section.style.display = 'none'
-	add_effect_section.style.display = 'none'
+	add_player_section.style.display = 'none';
 
 	// Nothing is showing
 	if (main_display.style.display != 'flex') {
-		main_display.style.display = 'flex'
-		add_spell_section.style.display = 'flex'
+		main_display.style.display = 'flex';
+		add_spell_section.style.display = 'flex';
 	
 	// Some other add option was open
 	} else if (main_display.style.display != 'none' && add_spell_section.style.display != 'flex') {
-		add_spell_section.style.display = 'flex'
+		add_spell_section.style.display = 'flex';
 	
 	// Player add was open, close it all
 	} else if (main_display.style.display != 'none') {
-		add_spell_section.style.display = 'none'
-		main_display.style.display = 'none'
+		add_spell_section.style.display = 'none';
+		main_display.style.display = 'none';
 	};    
 };
 

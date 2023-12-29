@@ -17,9 +17,8 @@
 	</div>
 	<div id="button-container">
 		<div id="add-buttons">
-			<button id="add-player" class="add-button">+Character</button>
+			<button id="add-player" class="add-button">+Initiative</button>
 			<button id="add-spell" class="add-button">+Spell</button>
-			<button id="add-effect" class="add-button">+Effect</button>
 		</div>
 	</div>
 </div>
@@ -29,7 +28,13 @@
 	<div id="add"> 
 		<input id="new-name" class="player-input" type="text" name="player" placeholder="Character Name">
 		<input id = "new-init" class="player-input" type="number" name="initiative" placeholder="Initiative" min="-5">
-		<input id="player-add" class="add-button" type="submit" name="add_button" value="Add Character" disabled>
+		<select id="new-type" class="player-input" name="type" required>
+			<option value="" disabled selected hidden>Type</option>
+			<option value="Player">Player</option>
+			<option value="Monster">Monster</option>
+			<option value="Effect">Lair Effect</option>
+		</select>
+		<input id="player-add" class="add-button" type="submit" name="add_button" value="Add To Initiative" disabled>
 		<div class="error" id="too-long">Character name must be less than 40 characters</div>
 		<div class="error" id="non-int">Initiative must be a whole number</div>
 		<div class="error" id="init-range">Initiative must be between -5 and 999</div>
@@ -50,15 +55,6 @@
 		<div class="error" id="too-short">Spell duration can't be negative</div>
 		<div class="error" id="spell-non-int">Spell duration must be a whole number</div>
 		<div class="error" id="spell-too-long">Spell name must be less than 64 characters</div>
-	</div>
-
-	<div id="new-effect">
-		<input id="new-effect-name" class="effect-input" type="text" name="effect" placeholder="Lair Effect">
-		<input id = "new-effect-init" class="effect-input" type="number" name="initiative" placeholder="Initiative" min="-5">
-		<input id="effect-add" class="add-button" type="submit" name="add_button" value="Add Effect" disabled>
-		<div class="error" id="effect-too-long">Effect name must be less than 40 characters</div>
-		<div class="error" id="effect-non-int">Initiative must be a whole number</div>
-		<div class="error" id="effect-init-range">Initiative must be between -5 and 999</div>
 	</div>
 </div>
 

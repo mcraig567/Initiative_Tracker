@@ -68,7 +68,7 @@
 	border-radius: 4px;
 }
 
-.player-logo {
+.player-logo, .monster-logo, .effect-logo {
 	width: 60px;
 }
 
