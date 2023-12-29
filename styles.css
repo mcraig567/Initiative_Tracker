@@ -230,7 +230,6 @@
 	padding: 10px 10px;
 	margin: 0px 2px;
 	background-color: white;
-
 }
 
 #main-display {
@@ -249,6 +248,20 @@
 
 .bottom_buttons {
     display: flex;
+	margin-top: 50px;
+}
+
+.bottom_buttons button {
+    border: 1px solid black;
+    border-radius: 4px;
+	font-family: Lato;
+	font-weight: bold;
+	vertical-align: middle;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+	padding: 10px 10px;
+	margin: 0px 2px;
+	background-color: black;
+	color: white;
 }
 
 .active {
