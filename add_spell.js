@@ -196,6 +196,7 @@ function newSpell() {
 	spell_time.value = time;
 	spell_time.nodeValue = `${spell_time.value} sec`;
 	time_container.classList.add('time');
+	time_container.value = time;
 	time_container.appendChild(spell_time);
 
 	let spell_conc = document.createTextNode('');
@@ -218,6 +219,7 @@ function newSpell() {
 	spell_elem.appendChild(right_div);
 	spell_elem.setAttribute('data-value', spell_time.value);
     spell_elem.setAttribute('data-caster', caster);
+	spell_elem.setAttribute('data-name', spell);
 
 	// Add functionality to show & hide remove button
 	spell_elem.addEventListener('mouseenter', (event) => {

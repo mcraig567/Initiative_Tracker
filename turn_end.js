@@ -32,6 +32,8 @@ function endTurn() {
 
     if (document.querySelector('#end_turn').innerHTML === "Start Battle") {
         document.querySelector('#end_turn').innerHTML = "End Turn";
+		document.querySelector('#battle-round').innerHTML = "Round: 1";
+		document.querySelector('#battle-round').value = 1;
     };
 
     //Get list of all players
@@ -58,10 +60,11 @@ function endTurn() {
 
             if (time <= 0) {
                 //Create text to be added to expired spell toast and add to toast div
-                let spellName = spell_times[i].parentNode.parentNode.childNodes[0].innerHTML;
+				let spellElem = spell_times[i].parentNode.parentNode;
+                let spellName = spellElem.getAttribute('data-name');
                 console.log(`Removing Spell ${spellName}`);
 
-                let caster = spell_times[i].parentNode.childNodes[1].dataset.value;
+                let caster = spellElem.getAttribute('data-caster');
                 console.log(`Caster ${caster}`);
 
                 let new_div = document.createElement('div');
@@ -74,8 +77,9 @@ function endTurn() {
 
             } else {
                 spell_times[i].value = time;
-                spell_times[i].parentNode.parentNode.dataset.value = time;
-                spell_times[i].innerHTML = `Remaining Time: ${spell_times[i].value}s`;
+                spell_times[i].parentNode.value = time;
+				spell_times[i].parentNode.parentNode.setAttribute('data-value', time);
+                spell_times[i].innerHTML = `${spell_times[i].value} sec`;
             };    
         };
 
@@ -83,6 +87,13 @@ function endTurn() {
         if (document.querySelector('#toast').innerHTML != "") {
             showToast();
         }
+
+		//Increase the round number 
+		let roundElement = document.querySelector('#battle-round');
+		let round = roundElement.value;
+		round += 1;
+		roundElement.value = round;
+		roundElement.innerHTML = `Round: ${round}`;
 
     } else {
         turn ++
