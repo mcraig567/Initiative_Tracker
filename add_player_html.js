@@ -1,7 +1,5 @@
-function build_player_html(name, initiative, char_type) {
-	console.log("loaded other function");
-
-	let name_no_space = name.replace(" ", "-");
+function build_player_html(char_name, initiative, char_type) {
+	let name_no_space = char_name.replaceAll(" ", "-");
 
 	//Get list of existing characters
 	all_players = document.querySelectorAll('.player_list');
@@ -84,7 +82,7 @@ function build_player_html(name, initiative, char_type) {
 
 	let name_div = document.createElement('div');
 	name_div.classList.add('player-name');
-	let name_text = document.createTextNode(`${name}`);
+	let name_text = document.createTextNode(`${char_name}`);
 	name_div.appendChild(name_text);
 
 	let init_div = document.createElement('div');
@@ -132,9 +130,9 @@ function build_player_html(name, initiative, char_type) {
 
 	//Add new player as option to cast a spell
 	let caster = document.createElement('option');
-	caster.value = name;
+	caster.value = char_name;
 	caster.id = `cast-${name_no_space}`;
-	caster.innerHTML = `${name}`;
+	caster.innerHTML = `${char_name}`;
 	document.querySelector('#spell-cast').appendChild(caster);
 
 }
