@@ -197,39 +197,6 @@ function jsonToPlayer(players) {
         if (i == turn) {
             outer.classList.add('active'); // Bold if player's turn
         };
-
-/*         let outer = document.createElement('li');
-        let kill_button = document.createElement('input');
-        let inner = document.createElement('div');
-
-        //Add data to outer <li> element
-        outer.classList.add('player_list');
-        outer.id = play.name;
-        outer.value = play.initiative
-        if (i == turn) {
-            outer.classList.add('active'); // Bold if player's turn
-        };
-
-        //Add data to kill button
-        kill_button.type = 'submit';
-        kill_button.name = 'dead';
-        kill_button.value = 'kill';
-        kill_button.classList.add('kill_button')
-        kill_button.onclick = removePlayer;
-
-        //Add data to inner <div> element
-        inner.classList.add('player');
-        inner.innerHTML = `${play.name} - ${play.initiative}`
-
-        outer.appendChild(kill_button);
-        outer.appendChild(inner);
-        document.querySelector('#current-players').appendChild(outer);
-
-        //Add player to caster list
-        let cast = document.createElement('option');
-        cast.value = play.name;
-        cast.innerHTML = `${play.name}`;
-        document.querySelector('#spell-cast').appendChild(cast); */
     };
 }
 
@@ -265,57 +232,5 @@ function jsonToSpell(spells) {
         spell = spells[i];
 
 		build_spell_html(spell.name, spell.time, spell.conc, spell.caster);
-
-/* 
-        //Create HTML elements
-        outer = document.createElement('li');
-        text = document.createElement('div');
-        inner = document.createElement('ul');
-        inner_time = document.createElement('li');
-        inner_cast = document.createElement('li');
-        remove = document.createElement('button');
-
-        //Add data to outer <li> element
-        outer.classList.add('spell_list');
-        outer.classList.add(`spell-${spell.caster}`);
-        outer.setAttribute('data-conc', spell.conc);
-        outer.setAttribute('data-value', spell.time);
-        outer.setAttribute('data-caster', spell.caster);
-
-        //Add data to text element
-        text.innerHTML = `${spell.name}`;
-
-        //Add data to inner list items
-        inner_time.value = spell.time;
-        inner_time.classList.add('time');
-        inner_time.innerHTML = `Remaining Time: ${spell.time}s`;
-
-        inner_cast.setAttribute('data-value', spell.caster);
-        inner_cast.innerHTML = `Caster: ${spell.caster}`;
-
-        //Add data to remove button
-        remove.classList.add('spell-remove');
-        remove.innerHTML = 'Remove';
-        remove.onclick = removeSpell;
-
-        //Create full element
-        inner.appendChild(inner_time);
-        inner.appendChild(inner_cast);
-
-        outer.appendChild(text);
-        outer.appendChild(inner);
-        outer.appendChild(remove);
-
-        //If Concentration Spell
-        if (spell.conc == "true") {
-            outer.setAttribute('data-conc', true);
-            let conc = document.createElement('li');
-            conc.innerHTML = 'Concentration';
-            inner.appendChild(conc);
-        } else {
-            outer.setAttribute('data-conc', false);
-        };
-
-        document.querySelector('#all-spells').appendChild(outer); */
     };
 }
