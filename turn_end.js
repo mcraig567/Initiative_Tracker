@@ -135,14 +135,15 @@ function endBattle() {
     console.log('Ending Battle')
     
     //Reset everything to blank
-    document.querySelector('#all-spells').innerHTML = "";
+    document.querySelector('#current-spells').innerHTML = "";
     document.querySelector('.current-players').innerHTML = "No players yet";
     turn = -1;
     document.querySelector('#end_turn').innerHTML = "Start Battle";
+	document.querySelector('#battle-round').innerHTML = "Battle Setup";
+	document.querySelector('#battle-round').value = 0;
     localStorage.setItem("spells", "");
     localStorage.setItem("players", "");
     localStorage.setItem("turn", "");
-    
 };
 
 function showToast() {
@@ -163,9 +164,11 @@ function playerToJSON() {
     for (let i = 0; i < players.length; i++) {
         let name = players[i].id;
         let initiative = players[i].value;
+		let player_type = players[i].getAttribute('data-type');
         let play = {
             'name': name,
-            'initiative': initiative
+            'initiative': initiative,
+			'type': player_type
         };
         console.log("Adding player JSON to saved array");
 
@@ -189,7 +192,13 @@ function jsonToPlayer(players) {
         console.log("Creating HTML for new player");
 
         //Create HTML elements for each player
-        let outer = document.createElement('li');
+		build_player_html(play.name, play.initiative, play.type);
+
+        if (i == turn) {
+            outer.classList.add('active'); // Bold if player's turn
+        };
+
+/*         let outer = document.createElement('li');
         let kill_button = document.createElement('input');
         let inner = document.createElement('div');
 
@@ -220,7 +229,7 @@ function jsonToPlayer(players) {
         let cast = document.createElement('option');
         cast.value = play.name;
         cast.innerHTML = `${play.name}`;
-        document.querySelector('#spell-cast').appendChild(cast);
+        document.querySelector('#spell-cast').appendChild(cast); */
     };
 }
 
@@ -232,7 +241,7 @@ function spellToJSON() {
         let caster = spells[i].dataset.caster;
         let time = spells[i].dataset.value;
         let conc = spells[i].dataset.conc;
-        let name = spells[i].firstChild.innerHTML;
+        let name = spells[i].dataset.name;
 
         let spell = {
             "caster": caster,
@@ -255,6 +264,9 @@ function jsonToSpell(spells) {
     for (let i = 0; i < spells.length; i++) {
         spell = spells[i];
 
+		build_spell_html(spell.name, spell.time, spell.conc, spell.caster);
+
+/* 
         //Create HTML elements
         outer = document.createElement('li');
         text = document.createElement('div');
@@ -304,6 +316,6 @@ function jsonToSpell(spells) {
             outer.setAttribute('data-conc', false);
         };
 
-        document.querySelector('#all-spells').appendChild(outer);
+        document.querySelector('#all-spells').appendChild(outer); */
     };
 }

@@ -118,8 +118,6 @@ function newPlayer(){
     let player_init = document.querySelector('#new-init').value;
 	let player_type = document.querySelector('#new-type').value;
 
-	console.log(typeof player_name);
-
 	if (typeof player_name != "string"){
 		player_name = player_name.toString();
 	}

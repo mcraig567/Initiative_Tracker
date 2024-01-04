@@ -9,6 +9,7 @@ function build_player_html(char_name, initiative, char_type) {
 	let new_player = document.createElement('li');
 	new_player.value = initiative;
 	new_player.id = name_no_space;
+	new_player.setAttribute('data-type', char_type);
 	new_player.classList.add("player_list");
 
 	//Create kill button and append to new player element
