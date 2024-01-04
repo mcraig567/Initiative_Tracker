@@ -129,7 +129,10 @@ function newSpell() {
     let concentration = document.querySelector('#new-spell-conc').value
     let caster = document.querySelector('#spell-cast').value;
 
-    // Create new list element
+	build_spell_html(spell, time, concentration, caster);
+}
+
+    /* // Create new list element
     let spell_elem = document.createElement('li');
     spell_elem.classList.add('spell_list');
     spell_elem.classList.add(`spell-${caster}`); //For easy removal
@@ -279,4 +282,4 @@ function newSpell() {
 
 function removeSpell() {
     this.parentNode.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode.parentNode);
-}
+} */
