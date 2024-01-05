@@ -1,4 +1,4 @@
-function build_spell_html(spell, time, concentration, caster) {
+function build_spell_html(spell, time, concentration, caster, id) {
 
 	let spell_no_space = spell.replaceAll(" ", "-");
 	let caster_no_space = caster.replaceAll(" ", "-");
@@ -6,7 +6,7 @@ function build_spell_html(spell, time, concentration, caster) {
 	// Create new list element
 	let spell_elem = document.createElement('li');
 	spell_elem.classList.add('spell_list');
-	spell_elem.classList.add(`spell-${caster_no_space}`); //For easy removal
+	spell_elem.classList.add(`spell-${id}`); //For easy removal
 
 	// Create HTML sections for styling
 
@@ -94,6 +94,7 @@ function build_spell_html(spell, time, concentration, caster) {
 	spell_elem.setAttribute('data-value', spell_time.value);
 	spell_elem.setAttribute('data-caster', caster_no_space);
 	spell_elem.setAttribute('data-name', spell_no_space);
+	spell_elem.setAttribute('data-casterId', id);
 
 	// Add functionality to show & hide remove button
 	spell_elem.addEventListener('mouseenter', (event) => {

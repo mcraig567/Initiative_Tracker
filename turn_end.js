@@ -100,12 +100,11 @@ function endTurn() {
     };
 
 	//Add bold font and border when players turn
-	let active_player_name;
+	let active_player_id;
     for (i = 0; i < players.length; i++) {
         if (i == turn) {
             players[i].classList.add('active-player');
-			active_player_name = players[i].id;
-			console.log(`Active Player: ${active_player_name}`);
+			active_player_id = players[i].id;
         } else {
             players[i].classList.remove('active-player');
         };
@@ -114,17 +113,26 @@ function endTurn() {
 	//Add bold border of any active spells cast by the player
 	let all_spells = document.querySelectorAll(".spell_list");
 	all_spells = Array.from(all_spells);
-
-	console.log(all_spells.length);
 	
 	for (i = 0; i < all_spells.length; i++){
-		console.log(`Caster: ${all_spells[i].dataset.caster}`);
-		console.log(`Active: ${active_player_name}`);
-
-		if (all_spells[i].dataset.caster === active_player_name) {
+		if (all_spells[i].dataset.casterid === active_player_id) {
 			all_spells[i].classList.add('active-spell');
 		} else {
 			all_spells[i].classList.remove('active-spell');
+		}
+	}
+
+	//Highlight the active player in casting options
+	let casterOptions = document.querySelector('#spell-cast');
+	for (let caster of casterOptions.children) {
+		if (caster.id === `cast-${active_player_id}`) {
+			//caster.innerHTML = `${caster.value} (Current)`;
+			caster.classList.add('active-caster');
+			
+		} else if (caster.id.length > 0) {		
+			//caster.innerHTML= caster.value;
+			caster.classList.remove('active-caster');
+
 		}
 	}
 
@@ -178,10 +186,13 @@ function playerToJSON() {
     let playerJSONs = [];
     players = document.querySelectorAll('.player_list');
     for (let i = 0; i < players.length; i++) {
-        let name = players[i].id;
+		let id = players[i].id;
+        let name = players[i].getAttribute('data-name');
         let initiative = players[i].value;
 		let player_type = players[i].getAttribute('data-type');
+		
         let play = {
+			'id': id,
             'name': name,
             'initiative': initiative,
 			'type': player_type
@@ -208,11 +219,11 @@ function jsonToPlayer(players) {
         console.log("Creating HTML for new player");
 
         //Create HTML elements for each player
-		build_player_html(play.name, play.initiative, play.type);
+		build_player_html(play.name, play.initiative, play.type, play.id);
 
         if (i == turn) {
 
-			let new_player = document.querySelector(`#${play.name}`)
+			let new_player = document.querySelector(`#${play.id}`)
             new_player.classList.add('active'); // Bold if player's turn
         };
     };
@@ -223,13 +234,15 @@ function spellToJSON() {
     spells = document.querySelectorAll('.spell_list');
 
     for (let i = 0; i < spells.length; i++) {
-        let caster = spells[i].dataset.caster;
+        let caster_name = spells[i].dataset.caster;
+		let caster_id = spells[i].dataset.casterid;
         let time = spells[i].dataset.value;
         let conc = spells[i].dataset.conc;
         let name = spells[i].dataset.name;
 
         let spell = {
-            "caster": caster,
+            "caster": caster_name,
+			"caster_id": caster_id,
             "time": time,
             "conc": conc,
             "name": name
@@ -249,6 +262,6 @@ function jsonToSpell(spells) {
     for (let i = 0; i < spells.length; i++) {
         spell = spells[i];
 
-		build_spell_html(spell.name, spell.time, spell.conc, spell.caster);
+		build_spell_html(spell.name, spell.time, spell.conc, spell.caster, spell.caster_id);
     };
 }

@@ -128,6 +128,10 @@ function newSpell() {
     let time = document.querySelector('#new-spell-duration').value;
     let concentration = document.querySelector('#new-spell-conc').value
     let caster = document.querySelector('#spell-cast').value;
+	let id = document.querySelector('#spell-cast');
+	id = id.options[id.selectedIndex].id.substring(5);
+	console.log(`id: ${id}`);
 
-	build_spell_html(spell, time, concentration, caster);
+
+	build_spell_html(spell, time, concentration, caster, id);
 }

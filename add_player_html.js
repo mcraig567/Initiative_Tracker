@@ -1,4 +1,4 @@
-function build_player_html(char_name, initiative, char_type) {
+function build_player_html(char_name, initiative, char_type, id = guidGenerator()) {
 	let name_no_space = char_name.replaceAll(" ", "-");
 
 	//Get list of existing characters
@@ -8,7 +8,8 @@ function build_player_html(char_name, initiative, char_type) {
 	//Create new div and append to end of list
 	let new_player = document.createElement('li');
 	new_player.value = initiative;
-	new_player.id = name_no_space;
+	new_player.id = id;
+	new_player.setAttribute('data-name', name_no_space);
 	new_player.setAttribute('data-type', char_type);
 	new_player.classList.add("player_list");
 
@@ -132,10 +133,10 @@ function build_player_html(char_name, initiative, char_type) {
 	//Add new player as option to cast a spell
 	let caster = document.createElement('option');
 	caster.value = char_name;
-	caster.id = `cast-${name_no_space}`;
+	caster.id = `cast-${id}`;
+	caster.setAttribute('data-name', name_no_space);
 	caster.innerHTML = `${char_name}`;
 	document.querySelector('#spell-cast').appendChild(caster);
-
 }
 
 function removePlayer(){

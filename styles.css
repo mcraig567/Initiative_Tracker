@@ -80,6 +80,10 @@
 	padding: 0px;
 }
 
+.active-caster {
+	font-weight: bold;
+}
+
 .player-logo, .monster-logo, .effect-logo {
 	width: 60px;
 }
