@@ -99,20 +99,34 @@ function endTurn() {
         turn ++
     };
 
-    //Clear old player list and make again
-    let player_list = document.querySelector('.current-players');
-    player_list.innerHTML = "";
-
-    //Add bold font when players turn
+	//Add bold font and border when players turn
+	let active_player_name;
     for (i = 0; i < players.length; i++) {
         if (i == turn) {
-            players[i].classList.add('active');
+            players[i].classList.add('active-player');
+			active_player_name = players[i].id;
+			console.log(`Active Player: ${active_player_name}`);
         } else {
-            players[i].classList.remove('active');
+            players[i].classList.remove('active-player');
         };
-
-        player_list.appendChild(players[i]);
     };
+
+	//Add bold border of any active spells cast by the player
+	let all_spells = document.querySelectorAll(".spell_list");
+	all_spells = Array.from(all_spells);
+
+	console.log(all_spells.length);
+	
+	for (i = 0; i < all_spells.length; i++){
+		console.log(`Caster: ${all_spells[i].dataset.caster}`);
+		console.log(`Active: ${active_player_name}`);
+
+		if (all_spells[i].dataset.caster === active_player_name) {
+			all_spells[i].classList.add('active-spell');
+		} else {
+			all_spells[i].classList.remove('active-spell');
+		}
+	}
 
     //Save turn data to local storage
     let spells = spellToJSON();
@@ -136,7 +150,9 @@ function endBattle() {
     
     //Reset everything to blank
     document.querySelector('#current-spells').innerHTML = "";
-    document.querySelector('.current-players').innerHTML = "No players yet";
+    document.querySelector('#current-players').innerHTML = "No players yet";
+	document.querySelector('#spell-cast').innerHTML = 
+		"<option value='' disabled selected hidden>Caster</option>";
     turn = -1;
     document.querySelector('#end_turn').innerHTML = "Start Battle";
 	document.querySelector('#battle-round').innerHTML = "Battle Setup";
@@ -195,7 +211,9 @@ function jsonToPlayer(players) {
 		build_player_html(play.name, play.initiative, play.type);
 
         if (i == turn) {
-            outer.classList.add('active'); // Bold if player's turn
+
+			let new_player = document.querySelector(`#${play.name}`)
+            new_player.classList.add('active'); // Bold if player's turn
         };
     };
 }

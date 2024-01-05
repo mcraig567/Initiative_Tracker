@@ -66,6 +66,18 @@
     width: 90%;
 	border: 1px solid lightgray;
 	border-radius: 4px;
+	padding: 1px;
+}
+
+.active-player {
+    font-weight: bold;
+	border: 2px solid gray;
+	padding: 0px;
+}
+
+.active-spell {
+	border: 2px solid gray;
+	padding: 0px;
 }
 
 .player-logo, .monster-logo, .effect-logo {
@@ -262,10 +274,6 @@
 	margin: 0px 2px;
 	background-color: black;
 	color: white;
-}
-
-.active {
-    font-weight: bold;
 }
 
 #battle-header {
